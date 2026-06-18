@@ -1,0 +1,14 @@
+{
+  "name": "xu-skills",
+  "owner": { "name": "xu" },
+  "metadata": {
+    "description": "xu 的通用 skill 集"
+  },
+  "plugins": [
+    {
+      "name": "xu-skills",
+      "source": ".",
+      "description": "learning-skill + learning-skill-plus + vibe-scripts 三个通用 skill 打包"
+    }
+  ]
+}
