@@ -8,7 +8,7 @@
     {
       "name": "xu-skills",
       "source": ".",
-      "description": "learning-skill + learning-skill-plus + vibe-scripts 三个通用 skill 打包"
+      "description": "learning-skill + learning-skill-plus + vibe-scripts + vibe-apps 四个通用 skill 打包"
     }
   ]
 }
