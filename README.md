@@ -13,6 +13,9 @@ learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动�
 ### vibe-scripts
 写**独立 Python 小工具/脚本**(自动化、数据处理、抓包分析、批量转换、串口调试等)的架构模板与分级规范。生成脚本前先加载它。
 
+### vibe-apps
+写**带界面 / 要发给别人 / 可能变网站的 Python 应用**的架构:五层(core/api/web/app.py/pywebview)+ FastAPI + pywebview + PyInstaller + 意图驱动设计记录(DESIGN.md/踩坑.md)。与 vibe-scripts 的分界:命令行单文件脚本→vibe-scripts,有界面/要分发的应用→vibe-apps。搭脚手架前先加载它。
+
 ## 安装(Claude Code)
 
 ```
@@ -20,4 +23,4 @@ learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动�
 /plugin install xu-skills@xu-skills
 ```
 
-安装后这三个 skill 即按各自触发条件自动生效。
+安装后这四个 skill 即按各自触发条件自动生效。
