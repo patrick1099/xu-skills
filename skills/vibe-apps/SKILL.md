@@ -123,6 +123,10 @@ DESIGN.md 是活文档：正文=当前真相可覆盖，旧决定压一句进文
 - 现象： / 根因： / 怎么防：
 ```
 
+## 原生文件/目录选择（webview 里拿不到本地绝对路径）
+
+浏览器沙箱拿不到本地绝对路径，但业务又常需要。**统一做法**：在 `api/` 加一个 HTTP 端点（如 `/api/pick-path`），服务端调 pywebview 的 `create_file_dialog(FOLDER_DIALOG/...)` 弹原生框返回路径；开发态没有 webview 窗口时回退 `tkinter.filedialog`。前端仍只 `fetch` 这个端点。**不要**为此改用 pywebview 的 js_api 业务桥——那会让前端耦合壳、且没法用浏览器调。这是"通信一律走 HTTP"的唯一需要特殊处理点。
+
 ## 开发 / 交付两态
 
 - **开发**：`uvicorn` 起服务，浏览器开 localhost，用 Chrome devtools 调 UI（pywebview 平时不参与，这正是不用专有桥的原因）。
