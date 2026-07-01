@@ -68,23 +68,16 @@ def summarize(data, store):       # ✅ 数据/存储显式传入
 
 同一 `core+api+web`，只换**交付层**：部署 FastAPI 到服务器（丢掉 pywebview/PyInstaller）、`api/` 加登录鉴权、加数据库按用户隔离。`core/` 不动——**前提是它从一开始就对"谁"无状态**。多人+登录+后台恰是 Django 甜区，也是 FastAPI→Django 便宜 swap 兑现之时。别提前建登录（YAGNI）。
 
-## 意图驱动设计记录（模式 C：自动 + 手动）
+## 设计记录（意图驱动）
 
-每个工具仓库放三样（骨架见下）：`CLAUDE.md` 规约段 + `docs/DESIGN.md`（活文档）+ `docs/踩坑.md`（bug 库）。
+**REQUIRED SUB-SKILL**：用 design-journal 建并维护 `CLAUDE.md` 规约段 + `docs/DESIGN.md` + `docs/踩坑.md`（模式 C、活文档、brainstorming 接缝都在那里）。vibe-apps **必用**——让 AI 照意图重构而非逆向猜代码。
 
-- **更新时机**：自动——拍板设计决策/发现 bug 时主动更新对应文档再继续；手动——用户说「记一下 X」立即记、「别记这个」撤销。
-- **DESIGN.md 是活文档**：正文=当前真相可覆盖改写；被推翻的旧决定压成一句挪文末「变更史」。正文绝不自相矛盾。提炼不是流水账。
-- **踩坑.md**：每条 = 现象/根因/怎么防。写新功能前先扫。
-- 开场先读这两份，照**意图**重构，不逆向猜代码。
-
-**与 brainstorming 接缝**：brainstorming 谈定的设计**直接落成该工具的初始 DESIGN.md**（覆盖 superpowers 默认 spec 位置，skill 自身允许），不另写 `docs/superpowers/specs/`；一处不留两份（小工具跳过 dated spec）；按大小缩放（大/新走完整 brainstorming→writing-plans→execute，小/明确的轻量→直接 DESIGN.md→动手）。
-
-## 脚手架（建目录 + 三文件）
+## 脚手架（建目录）
 
 ```
 mytool/
-├── CLAUDE.md              # ← 规约段(下)
-├── docs/{DESIGN.md,踩坑.md}   # ← 骨架(下)
+├── CLAUDE.md              # design-journal 规约段 + 下方 vibe-apps 架构约束段
+├── docs/{DESIGN.md,踩坑.md}   # ← 由 design-journal 建
 ├── core/*.py              # 纯逻辑, 可 pytest, 对"谁"无状态
 ├── api/server.py          # FastAPI 薄适配
 ├── web/{index.html,app.js,style.css}   # fetch 调 api; CDN 引 Pico.css
@@ -94,33 +87,13 @@ mytool/
 └── build.spec             # PyInstaller
 ```
 
-**CLAUDE.md 规约段**：
+**CLAUDE.md 追加 vibe-apps 架构约束段**（在 design-journal 规约段之外）：
 ```markdown
-## 设计记录规约（意图驱动开发）
-会话开始先读 docs/DESIGN.md 和 docs/踩坑.md，以其为准，不逆向猜代码。
-更新(自动+手动)：拍板决策/发现 bug → 更新对应文档再继续；用户「记一下 X」立即记、「别记这个」撤销。
-DESIGN.md 是活文档：正文=当前真相可覆盖，旧决定压一句进文末「变更史」，正文不自相矛盾。提炼不是流水账。
-踩坑.md：每 bug 一条 = 现象/根因/怎么防，写新功能前先扫。
-架构：core(纯逻辑可 pytest, 对"谁"无状态) / api(FastAPI 薄适配) / web(HTML+fetch) / app.py(拼装) / pywebview(壳)。
-逻辑只放 core；前端默认原生 HTML/CSS/JS + CDN CSS，零构建无 npm。
-```
-
-**docs/DESIGN.md**：
-```markdown
-# <工具名> 设计意图
-> 活文档：正文=当前真相可覆盖；改主意更新正文，旧决定进文末变更史。
-## 一句话：这工具干嘛的
-## 设计意图 / 关键决策
-## 架构（core 纯逻辑 + api 薄 FastAPI + web 前端 + pywebview 壳；core 对"谁"无状态）
-## 变更史（只追加，每条一句：从 A 改到 B，因为…）
-```
-
-**docs/踩坑.md**：
-```markdown
-# 踩坑记录
-> 每条：现象/根因/怎么防。写新功能前先扫一遍。
-## (日期) <一句话现象>
-- 现象： / 根因： / 怎么防：
+## 架构约束（vibe-apps）
+五层：core(纯逻辑可 pytest, 对"谁"无状态) / api(FastAPI 薄适配) / web(HTML+fetch) / app.py(拼装) / pywebview(壳)。
+逻辑只放 core；api 只做 HTTP↔core 翻译；web 不含业务逻辑。
+前端默认原生 HTML/CSS/JS + CDN CSS，零构建无 npm；通信走 HTTP，不用 pywebview 专有桥。
+DESIGN.md 的「## 架构」按此五层填写。
 ```
 
 ## 原生文件/目录选择（webview 里拿不到本地绝对路径）
