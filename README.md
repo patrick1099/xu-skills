@@ -19,6 +19,9 @@ learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动�
 ### design-journal
 **意图驱动的设计记录**(与技术栈无关):在项目里维护 DESIGN.md(活文档)+ 踩坑.md,让 AI 照设计意图重构而非逆向猜代码,跨会话不丢上下文。被 vibe-apps(必用)和 vibe-scripts(工具包级)共同引用,也可单独用于任何会长期迭代的项目。
 
+### curating-memory
+**手动整理 Claude Code 的持久记忆库**:说「整理记忆 / 记忆负担太大」时触发。合并/删除/重分类/瘦身索引,并把「该升级成 skill」「该进 CLAUDE.md」的条目挑出来提名。先出计划表 → 你逐批批准 → 才动文件;删除永不先斩后奏。可按需或深度追溯记忆的来源会话(originSessionId → transcript)。
+
 ## 安装(Claude Code)
 
 ```
@@ -26,4 +29,4 @@ learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动�
 /plugin install xu-skills@xu-skills
 ```
 
-安装后这五个 skill 即按各自触发条件自动生效。
+安装后这六个 skill 即按各自触发条件自动生效。
