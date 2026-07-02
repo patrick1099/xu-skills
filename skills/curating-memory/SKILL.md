@@ -59,8 +59,11 @@ description: Use when the user asks to 整理/清理/精简记忆, says memory b
 |------|--------|------|------|----------|
 | project_indent_tabs.md | project | 删 | 已被用户改口取代(4空格) | jsonl 已确认 |
 | project_sim_phase1/2.md | project | 并 | 同一模拟器进度系列 | — |
-| feedback_vsix_release_steps.md | feedback | 提名→skill | 是发版固定流程 | — |
+| feedback_vsix_release_steps.md | feedback | → skill | 是发版固定流程 | — |
+| feedback_always_vsix_on_release.md | feedback | → hook | "每次发版就打 vsix"是自动行为,记忆保证不了 | — |
 ...
+
+(裁决列填裁决判据表里的短码:留 memory / → CLAUDE.md / → skill / → plugin / → hook / 删 / 并 / 重分类 / 归一。)
 ```
 
 按裁决分组呈现。**删除组必须逐条亮出正文 + 理由,等用户明确点头**才删。用户批准后:
