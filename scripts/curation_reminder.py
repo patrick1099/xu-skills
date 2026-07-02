@@ -46,7 +46,7 @@ def main(argv):
     ctx = (f"[记忆整理提醒] 有记忆库距上次整理已超 {STALE_DAYS} 天:{names}。"
            f"需要时可用 curating-memory skill 整理(会先出计划、逐批批准,不自动改)。")
     print(json.dumps({"hookSpecificOutput": {
-        "hookEventName": "SessionStart", "additionalContext": ctx}}, ensure_ascii=False))
+        "hookEventName": "SessionStart", "additionalContext": ctx}}))
     return 0
 
 def _selftest():
@@ -65,6 +65,13 @@ def _selftest():
         mk("nostamp", None)                        # 无基线 → 静默
         res = {Path(m).parent.name for m, _ in stale_stores(root, today)}
         assert res == {"stale"}, f"got {res}"
+
+        payload = {"hookSpecificOutput": {"hookEventName": "SessionStart",
+                                          "additionalContext": "记忆整理提醒:测试"}}
+        s = json.dumps(payload)   # 必须与 main() 用同一种调用:不传 ensure_ascii=False
+        s.encode("ascii")         # ensure_ascii=True 下应为纯 ASCII;抛异常即回归
+        assert "\\u" in s, "中文应被转义"
+
         print("selftest OK"); return 0
     finally:
         shutil.rmtree(root, ignore_errors=True)
