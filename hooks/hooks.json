@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"${CLAUDE_PLUGIN_ROOT}/scripts/curation_reminder.py\"",
+            "shell": "bash",
+            "timeout": 15,
+            "statusMessage": "检查记忆库是否久未整理"
+          }
+        ]
+      }
+    ]
+  }
+}
