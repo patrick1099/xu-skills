@@ -5,7 +5,7 @@ description: Use when the user asks to 整理/清理/精简记忆, says memory b
 
 # Curating Memory
 
-整理 Claude Code 的持久记忆库:合并、删除、重分类、瘦身索引,并把「该变成 skill」「该进 CLAUDE.md」的条目**挑出来提名**。手动触发。
+整理 Claude Code 的持久记忆库:合并、删除、重分类、瘦身索引、相对日期归一化,并**判断每条记忆的最佳归宿**(留 memory / 进 CLAUDE.md / 成 skill / 并入 plugin / 做成 hook),把该"晋升"的条目**挑出来提名**。手动触发。
 
 **核心心法**:记忆库是被追溯过的资产。**先出方案 → 用户逐批批准 → 才动文件**。删除和改动永远不先斩后奏。
 
