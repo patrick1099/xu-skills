@@ -70,14 +70,14 @@ def summarize(data, store):       # ✅ 数据/存储显式传入
 
 ## 设计记录（意图驱动）
 
-**REQUIRED SUB-SKILL**：用 design-journal 建并维护 `CLAUDE.md` 规约段 + `docs/DESIGN.md` + `docs/踩坑.md`（模式 C、活文档、brainstorming 接缝都在那里）。vibe-apps **必用**——让 AI 照意图重构而非逆向猜代码。
+**REQUIRED SUB-SKILL**：用 living-blueprint 建并维护 `docs/BLUEPRINT.md`（活蓝图、行为契约、更新方式都在那里）。vibe-apps **必用**——让 AI 照功能全貌重构而非被旧实现绑架。
 
 ## 脚手架（建目录）
 
 ```
 mytool/
-├── CLAUDE.md              # design-journal 规约段 + 下方 vibe-apps 架构约束段
-├── docs/{DESIGN.md,踩坑.md}   # ← 由 design-journal 建
+├── CLAUDE.md              # 「开场先读 BLUEPRINT.md」提示 + 下方 vibe-apps 架构约束段
+├── docs/BLUEPRINT.md      # ← 由 living-blueprint 建(活蓝图)
 ├── core/*.py              # 纯逻辑, 可 pytest, 对"谁"无状态
 ├── api/server.py          # FastAPI 薄适配
 ├── web/{index.html,app.js,style.css}   # fetch 调 api; CDN 引 Pico.css
@@ -87,13 +87,13 @@ mytool/
 └── build.spec             # PyInstaller
 ```
 
-**CLAUDE.md 追加 vibe-apps 架构约束段**（在 design-journal 规约段之外）：
+**CLAUDE.md 追加 vibe-apps 架构约束段**（与 living-blueprint 提示并列）：
 ```markdown
 ## 架构约束（vibe-apps）
 五层：core(纯逻辑可 pytest, 对"谁"无状态) / api(FastAPI 薄适配) / web(HTML+fetch) / app.py(拼装) / pywebview(壳)。
 逻辑只放 core；api 只做 HTTP↔core 翻译；web 不含业务逻辑。
 前端默认原生 HTML/CSS/JS + CDN CSS，零构建无 npm；通信走 HTTP，不用 pywebview 专有桥。
-DESIGN.md 的「## 架构」按此五层填写。
+五层属实现架构，记在本 CLAUDE.md 约束段即可；BLUEPRINT.md 只记功能与行为，不记五层。
 ```
 
 ## 原生文件/目录选择（webview 里拿不到本地绝对路径）
@@ -112,4 +112,4 @@ DESIGN.md 的「## 架构」按此五层填写。
 - 用 pywebview 专有 JS 桥（不可移植、没法浏览器调）
 - 为了小体积去上 Tauri/Rust（小体积是审美，已放弃）
 - 默认就上 React/Vue + node 构建
-- 没建 DESIGN.md/踩坑.md 就开写
+- 没建 BLUEPRINT.md 就开写
