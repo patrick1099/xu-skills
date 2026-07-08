@@ -11,8 +11,8 @@
 结论：**不是功能重合，是同源。**
 - 路由**互斥且双向交叉引用**：有界面/要分发(exe)/可能变网站 → vibe-apps；否则(命令行单文件) → vibe-scripts。一个项目只落一个。
 - **skill 的 `description` 本身就是路由器**——匹配发生在加载正文之前、免费。两个窄 description 比一个宽 description 路由更准。
-- 真正重复的只有 ~10 行**共享 DNA**：Core 纯逻辑不做 IO、依赖方向 App→Core、意图记录(design-journal)、省 token 原理。
-- 合并（router+两分支 / 扁平单文件）是"牺牲路由精度 + 增加加载成本"换"消除 10 行重复"，不划算。若要动，唯一合理动作是把共享 DNA 抽成一份 reference 或并入 design-journal。
+- 真正重复的只有 ~10 行**共享 DNA**：Core 纯逻辑不做 IO、依赖方向 App→Core、配 living-blueprint 记功能蓝图、省 token 原理。
+- 合并（router+两分支 / 扁平单文件）是"牺牲路由精度 + 增加加载成本"换"消除 10 行重复"，不划算。若要动，唯一合理动作是把共享 DNA 抽成一份 reference 或并入 true-north:living-blueprint。
 
 ## 1. 核心模型：三角 + 第四轴
 
@@ -83,7 +83,7 @@ uvicorn 0.50 / pywebview 6.2 / pyinstaller 6.21 / UPX 4.2.4。
 ## 6. 给 vibe-apps 的改进候选（均未采纳）
 
 1. **"反 Rust/Tauri" 换硬理由**：现文案挂在"换语言=core 要整个重写=永远贵"这根柱子上；而
-   - design-journal 记录意图后，"重写成本"被削弱（不再逆向猜代码）；
+   - living-blueprint 记录活蓝图（What）后，"重写成本"被削弱（不再逆向猜代码）；
    - 更抗打的柱子是 **调试/迭代税永久偏高 + (HTML 前端的好看+AI 生态)**。
    建议把理由从"重写成本"改挂到"调试税 + 好看/AI 生态"。
 2. **补 onefile vs onedir 指引**：小包默认 **onefile**（单文件方便、体积≈、+0.5s）；仅当包变大(重库)才 onedir 避解压税。

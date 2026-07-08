@@ -23,7 +23,7 @@ description: Use when writing or modifying any standalone Python script or small
 
 拿不准时按标准级写。从标准级长成工具包是机械动作：五个区各自变成文件。
 
-**工具包级 / 会长期迭代的脚本**：配合 **`true-north:living-blueprint`**（工具活蓝图 BLUEPRINT.md）记设计意图与踩坑（微/标准级跑完即弃的通常不必）。
+**工具包级 / 会长期迭代的脚本**：建议配合 **`true-north:living-blueprint`** 维护 `docs/BLUEPRINT.md`（工具活蓝图，只讲功能不讲实现，纯手动触发）（微/标准级跑完即弃的通常不必）。
 
 ## 四层五区模板（标准级）
 
