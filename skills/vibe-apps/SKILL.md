@@ -93,8 +93,8 @@ mytool/
 五层：core(纯逻辑可 pytest, 对"谁"无状态) / api(FastAPI 薄适配) / web(HTML+fetch) / app.py(拼装) / pywebview(壳)。
 逻辑只放 core；api 只做 HTTP↔core 翻译；web 不含业务逻辑。
 前端默认原生 HTML/CSS/JS + CDN CSS，零构建无 npm；通信走 HTTP，不用 pywebview 专有桥。
-BLUEPRINT.md 的「## 架构」按此五层填写。
 ```
+（这五层是 **Python 特定实现结构**，属本 CLAUDE.md。其中**换语言仍成立的原则**——逻辑与 UI/框架解耦、逻辑层可独立测试、通信走标准协议不用专有桥——另写进 `BLUEPRINT.md` 第 4 节「硬约束·可移植架构约束」，见 true-north:living-blueprint；蓝图不收具名五层。）
 
 ## 原生文件/目录选择（webview 里拿不到本地绝对路径）
 
