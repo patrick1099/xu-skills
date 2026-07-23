@@ -51,6 +51,16 @@ Each learning topic must use this structure:
 
 Use the exact filenames `进度.md`, `错题与遗漏.md`, and `复习计划.md` so future review requests can route reliably.
 
+The folder holding these six files does not have to be named after the topic — if the parent directory is already dedicated to this one topic (e.g. a project folder created for it), the files can sit directly inside it without an extra topic-named wrapper.
+
+### Where topics live
+
+Topic folders are not necessarily inside the current project/working directory — a learner may keep them in an external notes vault (e.g. an Obsidian vault). Don't assume the current working directory is the root.
+
+- If the topic's location is already known from context (the learner opened it, mentioned it, or you created it there earlier in this conversation), use that location directly.
+- Otherwise ask where to create or look for it before doing anything else.
+- Once established for a topic, reuse that same location for all future operations on it (new lessons, review, global review) without asking again.
+
 ## Learning Mode
 
 ### 1. Start Assessment
@@ -118,7 +128,7 @@ Never advance just to keep pace.
 
 When the user asks to review a topic:
 
-1. Locate the matching topic folder.
+1. Locate the matching topic folder (see "Where topics live" — don't assume it's under the current working directory).
 2. Read `进度.md`, `错题与遗漏.md`, and `复习计划.md`.
 3. Calculate how many days have passed since the last learning or review date.
 4. Identify due review items by comparing absolute dates with today's date.
@@ -144,7 +154,7 @@ The review opening should look like:
 
 When the user says "今天该复习什么":
 
-1. Scan every topic folder in the current learning repository.
+1. Scan every known topic folder (see "Where topics live" — this may span more than one root, e.g. a notes vault plus the current project).
 2. Read each `复习计划.md`.
 3. List items whose `下次复习` is today or earlier.
 4. Group results by urgency:
@@ -225,6 +235,17 @@ If nothing is due, say so and optionally suggest continuing the most recently st
 | --- | --- | --- | --- | --- |
 ```
 
+## Answer Channel: Chat vs. Direct File Write
+
+Default: the learner answers checkpoint/review questions in chat.
+
+If the learner asks to write answers directly into a file instead:
+
+1. Write the questions into a file at the topic's location, with a blank line under each question for them to fill in directly.
+2. Tell the learner the file path and that they should signal when done (e.g. "答完了"/"写完了").
+3. Do not ask them to also answer in chat. Wait for their completion signal, then read the file and judge mastery as usual.
+4. Keep using this channel for the rest of the topic unless the learner switches back.
+
 ## Update Rules
 
 After every lesson or review session:
@@ -233,6 +254,7 @@ After every lesson or review session:
 2. Add or resolve items in `错题与遗漏.md`.
 3. Update `复习计划.md` using absolute dates.
 4. If the repository is a configured git repo, commit and push only when the user explicitly wants automatic sync enabled for this learning log.
+5. If the topic's folder lives outside the current project (see "Where topics live"), save or refresh a `reference`-type memory recording its absolute path plus a one-line current resume pointer (e.g. which questions are pending). A fresh conversation in this project has no other way to find it.
 
 ## Anti-Patterns
 
