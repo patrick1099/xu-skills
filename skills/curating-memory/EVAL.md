@@ -1,3 +1,10 @@
+# curating-memory 验收用例
+
+- **v0.3**(五向归宿路由 + 日期归一化):用例 A–E,记录见下半篇。v0.4 视为**回归用例**,必须仍全绿。
+- **v0.4**(金库 `shared/` 成为唯一活源):用例 F–K,记录见文末。
+
+---
+
 # curating-memory v0.3 验收用例(合成记忆 → 期望归宿)
 
 | # | 合成记忆(正文要点) | 期望归宿 | v0.2 能否判对 |
@@ -37,3 +44,100 @@
 - **E**("把 protocol-simulator + reconciling 两个 skill 打包成可分发的私有插件"):命中新增「→ plugin」档——"比单个 skill 更大的能力集合,或需分发/多件打包(多 skill+hook+命令)。**提名**并指出并入哪个现有插件或新建"。这条正文正是"把两个已有 skill 打包成一个可分发插件"的措辞,精确命中"多 skill+需分发打包"信号;与「→ skill」档("可复用的操作流程/技法",单一流程的归宿)区分开——E 讨论的是**打包分发多个能力**而非单一可复用步骤,所以落在 plugin 而不是 skill。**裁决:提名→plugin**。✅ 与期望一致,确认 →skill 与 →plugin 边界可判。
 
 **GREEN 结论**:A→hook、B→CLAUDE.md、C→skill、D→留 memory 且日期归一化、E→plugin,**5/5 全部裁决正确**(五向归宿——留memory/CLAUDE.md/skill/plugin/hook——各验证 1 例)。GREEN 成立,v0.3 SKILL.md 升级验收通过,skill 与 plugin 边界经 E 用例验证可判。
+
+---
+
+# curating-memory v0.4 验收用例(体制变更:金库 `shared/` 是唯一活源)
+
+用例**全部取自 2026-07-23 的真实机器状态**,不是合成的。
+
+| # | 场景(真实) | 期望 v0.4 行为 | v0.3 能否判对 |
+|---|---|---|---|
+| F | `reference_img2md_script` 同时存在于 `~/.claude/projects/<slug>/memory/` 与 `$VAULT/shared/memory/`,两份索引都注入上下文 | 认出收件箱副本已入库 → 删收件箱那份,消除双份索引 | ✗ 只认一个库,看不见另一份 |
+| G | `~/.codex/memories/MEMORY.md`(250KB)里有稳定的用户偏好条目 | 只读 `memory_summary.md` + `User preferences` 段,人工抽取提名进 shared;**绝不把该目录接进 collect** | ✗ 全文无 codex;且无禁令,易酿自我复制回环 |
+| H | `ai-room` skill 在 `~/.claude/skills/` 与 `~/.codex/skills/`,金库 `shared/skills/` 里没有 | 扫出「游离资产」→ 收编提名 | ✗ 只扫 memory 目录,不扫 skill/plugin |
+| I | 49 条记忆的 `scope` 全是 `global`,含大量只对 claude 有意义的条目 | 打 scope 标,且认清只有 `tool:` 维度能真瘦本机视图(`class:`/`project:` 是设备订阅条件) | ✗ frontmatter 只认 `type`,无 scope 概念 |
+| J | 某条记忆正文写着 `C:\Users\<用户>\hub-vault\...` 裸绝对路径 | 符号化为 `$VAULT/...`;实在没法映射的登记 `lint-exempt.txt` | ✗ 「归一」档只管相对日期 |
+| K | 用户说「索引摘要太长了,精简一下」 | 改各条 frontmatter 的 `description`,再 `hub sync --refresh` 重算索引 | ✗✗ **主动做错事**:v0.3 明令手改 MEMORY.md |
+
+**RED 判定**:F–K 六条,v0.3 全部判错或漏做,其中 K 是**破坏性**的(不是没做,是做了会被覆盖的无用功)。
+
+---
+
+## RED 裁决记录(用 v0.3 SKILL.md 实走,升级前)
+
+逐条依据 v0.3 SKILL.md 的 `## 找到记忆库与来源`(只写 `~/.claude/projects/<项目slug>/memory/`)、`## 四步流程`、九档 `## 裁决判据` 表、以及 `## 计划表 → 批准 → 执行` 第 2 步实际走一遍:
+
+- **F**(收件箱重复副本):v0.3 的库定位只有一句「宿主注入的 memory 目录」。走进去看到 `reference_img2md_script.md`,frontmatter 完好、内容有效、不重复、没过期——照九档判据落在「留 memory」。**金库里已有同名权威副本这件事,v0.3 的流程里没有任何一步会去看**,更不会得出"删掉收件箱这份以消除双份索引"的结论。用户感受到的「记忆负担太大」有一半来自这种双份,而 v0.3 整完一遍负担纹丝不动。**判错**。✗
+- **G**(codex 生成态):v0.3 全文没有 "codex" 二字,四步流程第 1 步只扫一个 memory 目录,不会主动去看 `~/.codex/memories/`。即使用户指着让它看,九档里也没有"从生成态素材里抽取新记忆"这一档(九档全是**对已有记忆**的裁决)。更严重的是 v0.3 **没有任何禁令**说这个目录不能接进采集——一个照 v0.3 干活的 agent 顺手把它加进 `device.toml [sources.codex] memory` 是完全合理的动作,而那会触发自我复制回环(灌给 Codex → 它当"学到的事实"再蒸馏 → 又收回金库)。**判错且有害**。✗
+- **H**(ai-room 游离 skill):v0.3 的「→ skill」档方向是**从记忆里提炼出一个新 skill**;本例方向相反——一个**已经存在**的 skill 没被金库收编。v0.3 的四步流程第 1 步只读 memory 目录的 `*.md`,`~/.claude/skills/` 和 `shared/skills/` 都不在视野内。这条永远不会被发现。**判错(漏做)**。✗
+- **I**(全 global scope):v0.3 廉价扫只读「name/description/type」三个字段,`## 裁决判据` 里唯一碰 frontmatter 的是「重分类」档,而它明写"改 frontmatter 的 type"。`scope` 字段决定这条记忆发给哪些工具、哪些工程——全 `global` 等于每条都轰炸所有工具所有工程,这正是上下文膨胀的主因,但 v0.3 九档里没有任何一档会去动它。**漏做**。✗
+- **J**(正文绝对路径):v0.3 的「归一」档定义死在相对日期上("上周/3天前/昨天/最近")。裸绝对路径不属于任何一档。后果是具体的:v0.3 整理完把正文写回金库,下一次 `hub sync` 撞上裸路径 lint 直接拒绝,整批整理卡死在一个 agent 从没听说过的检查上,而它连 `lint-exempt.txt` 这个逃生舱的存在都不知道。**漏做**。✗
+- **K**(精简索引):v0.3 `## 计划表 → 批准 → 执行` 第 2 步**白纸黑字要求**:"同步并精简 `MEMORY.md`(收尾审计,当独立资产审一遍)……压明显超标的长摘要句"。在新体制下,金库根 `MEMORY.md` 和 `~/.hub/views/<tool>/MEMORY.md` **都是 `hub sync`/`refresh` 整份重算重写的派生物**,SCHEMA §5 明写"手改必被覆盖——要改内容,去改记忆文件自己的 frontmatter"。所以 v0.3 在这一步不是漏做,而是**主动做一件必然被覆盖的无用功**,并且给用户留下"索引已经精简过了"的错觉,下一次 sync 悄悄打回原形。**判错,且是六条里唯一破坏性的一条**。✗✗
+
+**RED 结论**:F ✗、G ✗(有害)、H ✗、I ✗、J ✗、K ✗✗ —— 6/6 全错。根因是同一个:v0.3 把"记忆库"等同于 `~/.claude/projects/*/memory/` 这一个目录,而该目录现在只是收件箱。RED 基线成立。
+
+---
+
+## GREEN 裁决记录(用升级后的 v0.4 SKILL.md + references/)
+
+逐条依据新版 `## 先认清活源` 表、`## 五步流程`、十四档 `## 裁决判据` 表、`## 计划表 → 批准 → 执行`
+的收尾链路、`## 反模式`,以及 `references/hub-regime.md` / `references/intake-sweep.md` 重新走一遍:
+
+- **F**(收件箱重复副本):五步流程第 2 步「收编扫描」把 `references/intake-sweep.md` 的口 1 走一遍——
+  "比对收件箱与 `$VAULT/shared/memory/` 的文件名集合",`reference_img2md_script` 落在"两边都有,内容一致"
+  这一行,裁决 **删收件箱那份**;并被口 1 的前置约束挡住误删("删收件箱副本前必须确认金库那份真的在,
+  读到文件,不是靠索引推断")。内容分岔的情况另有一行要求停下来问。**裁决:删收件箱副本(消除双份索引)**。✅
+- **G**(codex 生成态):口 2 给出取材而非采集的路径——先读 `memory_summary.md`(10KB 可整读),
+  `MEMORY.md`/`raw_memories.md` **只按段 grep 不整读**,挑跨会话稳定的偏好重写成规范记忆提名入库,
+  并在正文注明出处。同时两道禁令生效:`## 先认清活源` 表里 `~/.codex/memories/` 一行写死"只取材,永不采集";
+  `## 反模式` 有"把 `~/.codex/memories/` 当可采集的源接进 `device.toml` —— 自我复制回环"。
+  **裁决:人工抽取 → 提名入库;不接采集、不整份读**。✅ RED 里"顺手接进 device.toml"这条有害动作被明确堵死。
+- **H**(ai-room 游离 skill):口 3「三查」第 1 查——"`$CLAUDE_HOME/skills/*` 与 `$CODEX_HOME/skills/*` 里,
+  哪些不在 `$VAULT/shared/skills/` 里",ai-room 精确命中;并带一条防误报("已被 hub 注册的 skill 在工具地盘
+  是指向金库的链接,不算游离,看它是不是真目录"——ai-room 是真目录,确实游离)。落到裁决表的
+  **「收编提名」**档,只提名 `hub promote --tool claude --name ai-room` 交用户跑。**裁决:收编提名**。✅
+- **I**(全 global scope):命中新增「打 scope 标」档。**且判得比 RED 期望更准**——该档写明只有 `tool:` 维度
+  能立刻瘦某个工具的视图,`class:`/`project:` 是设备订阅条件、在本机一条上下文都省不下
+  (`references/hub-regime.md` §5 详述:`project:xinao` 不是"仅 xinao 工程可见",视图是用户级全局视图)。
+  所以裁决不是"给 49 条一律打 project:xinao",而是**只对确属单一工具的记忆打 `tool:`**,其余保持 global;
+  收窄按行为变更进批准表。**裁决:按 tool 维度选择性收窄**。✅(反模式亦有"拿 class:/project: 当本机瘦身手段卖")
+- **J**(正文绝对路径):命中新增「符号化」档——换成 `$VAULT`/`$CLAUDE_HOME`/`$CODEX_HOME`,符号表 =
+  `device.toml` 的 `[paths]`;纯信息性且无符号可映射的登记 `$VAULT/lint-exempt.txt`。收尾链路里
+  `hub sync --refresh` 明确要求"lint 报错就停下来修,别绕过",删/改名时还要清 lint-exempt 的死行。
+  **裁决:符号化(必要时登记逃生舱)**。✅
+- **K**(精简索引):v0.3 那条破坏性指令已**整条删除**。新版三处堵它:①`## 先认清活源` 表把
+  `$VAULT/MEMORY.md` 与 `~/.hub/views/*/MEMORY.md` 标成"派生物,手改必被覆盖",并加粗
+  "索引里的摘要句 = 各条记忆的 `description` 字段";②裁决表新增「压摘要」档,动作写死"改 description 字段,
+  不是改索引文件";③反模式列"手改 `$VAULT/MEMORY.md` 或 `~/.hub/views/*/MEMORY.md`"。
+  收尾链路以 `hub sync --refresh` 重算索引。**裁决:改各条 description → sync --refresh**。✅
+  RED 里最危险的一条被改成正确动作。
+
+**回归(A–E,v0.3 用例)**:五向归宿路由(留 memory / →CLAUDE.md / →skill / →plugin / →hook)在
+`## 裁决判据` 表中原样保留,措辞未改;「归一」档(相对日期→绝对 `YYYY-MM-DD`,锚不可靠就问不猜)保留,
+并在表末尾把"一条记忆可同时命中多档"的次序说明从"先归一再定归宿"扩写为"先做归一/符号化/压摘要这类内容修,
+再定归宿"。A–E **5/5 仍全绿**。
+
+**GREEN 结论**:F–K **6/6 全部裁决正确**,A–E 回归 5/5,合计 **11/11**。v0.4 验收通过。
+
+---
+
+## hook 改造验收(`scripts/curation_reminder.py`)
+
+体制变更后旧 hook 会盯错库:它扫 `~/.claude/projects/*/memory/.curated`,而那里已降级为收件箱——
+金库半年不整理也不会响,收件箱的戳一新反而永远压住提醒。
+
+改法:`vault_from_config()` 读 `~/.hub/config.toml` 的**根表** `vault` 键 → 若
+`<vault>/shared/memory/` 存在则**只查金库那个戳**;读不到金库(没装 hub / 路径不存在 / 没有 vault 键)
+则**回退旧扫描**,行为与 v0.3 完全一致。两种情况都保持"没有戳 = 没基线 → 静默"。
+
+`selftest` 六条断言全过(`py -3 scripts/curation_reminder.py selftest` → `selftest OK`, exit 0):
+①没装 hub → 回退旧扫描只报超期项目;②金库超期 → 只报金库、不再报收件箱;③金库新鲜 → 全静默
+(哪怕收件箱戳很旧);④金库无戳 → 无基线静默;⑤`vault` 指向不存在的目录 → 回退不崩;
+⑥config 里 `vault` 只出现在别的 table 下 → 视为没有,回退。另保留 v0.3 的 GBK 控制台回归断言
+(`ensure_ascii=True`,输出纯 ASCII)。
+
+**真机端到端**(伪 `HOME` 指向临时金库,戳 `2026-05-01`):hook 正确输出
+`additionalContext = "[记忆整理提醒] 距上次整理已超 30 天:金库 shared/memory(83天)。…"`,
+全 ASCII 转义,exit 0。真实金库上跑(`$VAULT/shared/memory/` 尚无 `.curated`)→ 无输出、exit 0,
+符合"无基线静默"。
