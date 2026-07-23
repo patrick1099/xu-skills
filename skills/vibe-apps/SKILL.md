@@ -18,7 +18,7 @@ description: Use when building a personal Python tool/app that has a UI, will be
 | 跑完即弃 / 命令行 / 单文件 | **vibe-scripts** |
 | 有界面 / 要发给别人(exe) / 要长期活或可能变网站 | **本 skill** |
 
-**REQUIRED 前置**：建新东西先用 superpowers:brainstorming 谈定设计，再用本 skill 落地。
+**流程前置**：先由 `vibe-flow` 判断是否需要澄清或短设计。目标清楚的小应用可直接落地；只有严重歧义、用户明确要求或高风险设计才升级到完整 brainstorming。
 
 ## 技术栈（定死，不再选）
 
@@ -70,14 +70,14 @@ def summarize(data, store):       # ✅ 数据/存储显式传入
 
 ## 设计记录（意图驱动）
 
-**REQUIRED SUB-SKILL**：用 `true-north:living-blueprint` 建并维护 `docs/BLUEPRINT.md`（工具活蓝图，只讲功能不讲实现，纯手动触发）。vibe-apps **必用**——让 AI 照蓝图重构而非逆向猜旧实现。
+按 `vibe-flow` 的生命周期规则留文档：单会话小应用不强制建文档；跨会话且需求仍在演化时用 `docs/NEEDS.md`；长期维护、以后会按意图重构时，用 `true-north:living-blueprint` 建并维护 `docs/BLUEPRINT.md`。
 
 ## 脚手架（建目录）
 
 ```
 mytool/
 ├── CLAUDE.md              # 下方 vibe-apps 架构约束段
-├── docs/BLUEPRINT.md      # ← 由 living-blueprint 建
+├── docs/BLUEPRINT.md      # 长期维护时由 living-blueprint 建；小应用可无
 ├── core/*.py              # 纯逻辑, 可 pytest, 对"谁"无状态
 ├── api/server.py          # FastAPI 薄适配
 ├── web/{index.html,app.js,style.css}   # fetch 调 api; CDN 引 Pico.css
@@ -112,4 +112,4 @@ mytool/
 - 用 pywebview 专有 JS 桥（不可移植、没法浏览器调）
 - 为了小体积去上 Tauri/Rust（小体积是审美，已放弃）
 - 默认就上 React/Vue + node 构建
-- 没建 BLUEPRINT.md 就开写
+- 长期维护项目没有可供后续会话读取的当前需求/蓝图

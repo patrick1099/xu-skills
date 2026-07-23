@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vibe Flow"
+  short_description: "轻量路由 vibe coding：按需澄清、实现、验证"
+  default_prompt: "Use $vibe-flow to route this vibe-coding request through the lightest sufficient clarification, implementation, and verification path."
