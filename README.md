@@ -17,7 +17,9 @@ learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动�
 写**带界面 / 要发给别人 / 可能变网站的 Python 应用**的架构:五层(core/api/web/app.py/pywebview)+ FastAPI + pywebview + PyInstaller。与 vibe-scripts 的分界:命令行单文件脚本→vibe-scripts,有界面/要分发的应用→vibe-apps。搭脚手架前先加载它。
 
 ### curating-memory
-**手动整理 Claude Code 的持久记忆库**:说「整理记忆 / 记忆负担太大」时触发。合并/删除/重分类/瘦身索引,并把「该升级成 skill」「该进 CLAUDE.md」的条目挑出来提名。先出计划表 → 你逐批批准 → 才动文件;删除永不先斩后奏。可按需或深度追溯记忆的来源会话(originSessionId → transcript)。
+**手动整理持久记忆库**:说「整理记忆 / 记忆负担太大」时触发。合并/删除/重分类/瘦身摘要/日期归一化/路径符号化/scope 打标,并把「该升级成 skill」「该进 CLAUDE.md」「该做成 hook」的条目挑出来提名。另外扫三个收编口:工具地盘收件箱里还没入库的记忆、Codex 自蒸馏记忆里值得提炼的偏好、本机有但没进共享库的 skill/plugin。先出计划表 → 你逐批批准 → 才动文件;删除永不先斩后奏。可按需或深度追溯记忆的来源会话(originSessionId → transcript)。
+
+> 装了 hub 共享数据层(`~/.hub/config.toml` 指得到金库)时,整理对象是金库 `shared/memory/`——那是唯一活源,索引与视图都是派生物、由 `hub sync --refresh` 重算;没装 hub 时退回整理宿主注入的 memory 目录。附带的 SessionStart 提醒 hook 会跟着同一个判断走。
 
 ## 安装(Claude Code)
 
