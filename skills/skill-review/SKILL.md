@@ -1,9 +1,9 @@
 ---
-name: skill-retrospective
+name: skill-review
 description: Use only when the user explicitly asks to review, retrospect, improve, or evolve a skill/plugin from the current completed conversation; asks what should become a script or what should change in SKILL.md, its description, references, or tests; or requests a post-task skill retrospective. Launch an independent subagent to review evidence from one real run, separate automation candidates from prompt and validation changes, and return reviewable proposals without editing. Domain-agnostic and usable after any skill. Do not auto-run after ordinary task completion.
 ---
 
-# Skill Retrospective
+# Skill Review
 
 把一次真实运行留下的摩擦，转成有证据、可审核、不过拟合的 skill 改进提案。
 

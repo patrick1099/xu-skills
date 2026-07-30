@@ -1,0 +1,7 @@
+interface:
+  display_name: "Skill Review"
+  short_description: "Review real skill runs and propose focused improvements"
+  default_prompt: "Use $skill-review to review this completed skill run with an independent subagent and separate script candidates from prompt changes."
+
+policy:
+  allow_implicit_invocation: false
