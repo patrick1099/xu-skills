@@ -4,6 +4,9 @@
 
 ## 包含的 skill
 
+### skill-retrospective
+**基于真实运行证据的轻量 skill 复盘**：只在明确调用时启动一个独立子 agent，回看当前对话、实际使用的 skill、工具错误、用户纠正和验证结果；把发现分别路由为脚本候选、`SKILL.md` 正文、description、reference/example、验证缺口、宿主/项目规则或“不应修改”。默认只生成逐项可审核的提案，不自动编辑、bump 版本或提交。
+
 ### vibe-flow
 **轻量 vibe-coding 主流程**：先回答用户此刻的问题，只澄清会改变结果的歧义，再路由到个人脚本、带界面应用或公司项目分支；按生命周期决定是否留文档，按风险决定测试与真实使用验证。需求清楚后仍有重大技术取舍时，可把 `ai-room` 作为一次性的第二 AI 决策升级，而不是必经审查门。
 
@@ -31,4 +34,4 @@ learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动�
 /plugin install xu-skills@xu-skills
 ```
 
-安装后这六个 skill 即按各自触发条件自动生效。
+安装后这七个 skill 即按各自触发条件生效；`skill-retrospective` 因为会额外启动子 agent，仅在显式调用时运行。
