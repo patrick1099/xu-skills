@@ -1,0 +1,145 @@
+{
+  "lang": "en",
+  "display": "English",
+  "note": "English LLM tells. Overlaps with slopster / deslop / vale-llm-slop by design — those are the reference implementations. Kept here so a bilingual README can be checked in one pass instead of wiring up Vale.",
+  "flags": "i",
+  "rules": [
+    {
+      "id": "en-emdash",
+      "name": "em dash abuse",
+      "pattern": "\\u2014",
+      "max": 3,
+      "sev": "error",
+      "msg": "The single strongest English tell. Human technical writers rarely stack em dashes.",
+      "fix": "Use a period, a colon, or parentheses"
+    },
+    {
+      "id": "en-negation-pivot",
+      "name": "negation pivot (not X, but Y)",
+      "pattern": "\\b(?:is|are|was|were|it'?s|that'?s)\\s+not\\b[^.!?\\n]{1,45}?[,.]\\s*(?:but|it'?s|they'?re)\\b",
+      "max": 1,
+      "sev": "error",
+      "msg": "The contrastive pivot LLMs cannot stop producing.",
+      "fix": "State Y directly. Keep one only if you are correcting a real misconception"
+    },
+    {
+      "id": "en-not-just",
+      "name": "\"not just X but Y\"",
+      "pattern": "\\bnot (?:just|only|merely)\\b[^.\\n]{1,45}\\bbut\\b",
+      "max": 0,
+      "sev": "error",
+      "msg": "Escalation template.",
+      "fix": "Drop the first half"
+    },
+    {
+      "id": "en-definition-opener",
+      "name": "definition opener",
+      "pattern": "^\\s*(?:`?[\\w-]+`?\\s+)?(?:This|The)?\\s*(?:project|tool|repo(?:sitory)?|plugin|package|library|script)\\s+is\\s+an?\\s",
+      "max": 0,
+      "sev": "error",
+      "msg": "Opening with taxonomy instead of a picture. The reader wants to know what it fixes for them.",
+      "fix": "Lead with the reader's situation or the effect",
+      "scope": "line"
+    },
+    {
+      "id": "en-delve",
+      "name": "delve / navigate the landscape",
+      "pattern": "\\b(?:delve|delving|navigate the landscape|tapestry|realm of)\\b",
+      "max": 0,
+      "sev": "error",
+      "msg": "Flagship LLM vocabulary.",
+      "fix": "Say what you mean plainly"
+    },
+    {
+      "id": "en-buzz",
+      "name": "buzzwords",
+      "pattern": "\\b(?:leverage|leveraging|utilize|utilizing|seamless(?:ly)?|cutting-edge|game-?chang(?:er|ing)|supercharge|unlock(?:ing)? the|empower(?:s|ing)?|elevate|holistic|synerg(?:y|ies)|revolutionize)\\b",
+      "max": 1,
+      "sev": "error",
+      "msg": "Marketing filler. Each one costs credibility in a technical README.",
+      "fix": "leverage->use, utilize->use, seamless->delete, empower->let"
+    },
+    {
+      "id": "en-inflated-adjectives",
+      "name": "inflated adjectives",
+      "pattern": "\\b(?:comprehensive|powerful|robust|effortless(?:ly)?|blazing(?:ly)? fast|state-of-the-art|world-class|beautiful(?:ly)?)\\b",
+      "max": 2,
+      "sev": "warn",
+      "msg": "Adjectives claiming quality the reader cannot verify.",
+      "fix": "Replace with the measurement or the output that proves it"
+    },
+    {
+      "id": "en-worth-noting",
+      "name": "\"it's worth noting\"",
+      "pattern": "\\b(?:it'?s worth noting|it is worth noting|it'?s important to note|notably,|importantly,)\\b",
+      "max": 1,
+      "sev": "warn",
+      "msg": "Filler transition; deleting it loses nothing.",
+      "fix": "Just say the thing"
+    },
+    {
+      "id": "en-lets-dive",
+      "name": "\"let's dive in\"",
+      "pattern": "\\blet'?s (?:dive|get started|explore|take a look|walk through)\\b",
+      "max": 0,
+      "sev": "error",
+      "msg": "Tutorial voice. README readers are here to copy a command.",
+      "fix": "Delete; give the command"
+    },
+    {
+      "id": "en-in-todays",
+      "name": "\"in today's fast-paced world\"",
+      "pattern": "\\bin today'?s (?:fast-paced|digital|modern|ever-evolving)\\b|\\bin the world of\\b",
+      "max": 0,
+      "sev": "error",
+      "msg": "Essay opener with zero information.",
+      "fix": "Delete the sentence"
+    },
+    {
+      "id": "en-conclusion",
+      "name": "essay conclusion",
+      "pattern": "\\b(?:in conclusion|to sum up|in summary,|all in all)\\b",
+      "max": 0,
+      "sev": "error",
+      "msg": "READMEs are not essays; nobody reads to the conclusion.",
+      "fix": "Delete"
+    },
+    {
+      "id": "en-whether-youre",
+      "name": "\"whether you're X or Y\"",
+      "pattern": "\\bwhether you'?re\\b[^.\\n]{1,50}\\bor\\b",
+      "max": 0,
+      "sev": "error",
+      "msg": "Audience-flattering template that names two audiences and serves neither.",
+      "fix": "Name the one real user and what they were doing when they needed this"
+    },
+    {
+      "id": "en-weasel",
+      "name": "simply / just / easily",
+      "pattern": "\\b(?:simply|just|easily|quickly)\\s+\\w+",
+      "max": 4,
+      "sev": "warn",
+      "msg": "If it were simple the reader would not be reading this line.",
+      "fix": "Delete the adverb; if a step is genuinely one command, showing it proves that"
+    },
+    {
+      "id": "en-emoji-heading",
+      "name": "emoji in headings",
+      "pattern": "^#{1,6}\\s*[\\U0001F300-\\U0001FAFF\\u2728\\u2705\\u26A1\\u2b50]",
+      "max": 0,
+      "sev": "warn",
+      "msg": "The most visible marker of a generated README.",
+      "fix": "Drop it; use heading levels for structure",
+      "scope": "line"
+    },
+    {
+      "id": "en-hedge",
+      "name": "hedging",
+      "pattern": "\\b(?:might|could|may)\\s+(?:be|help|want|need)\\b|\\bto some extent\\b|\\bgenerally speaking\\b",
+      "max": 4,
+      "sev": "warn",
+      "msg": "Hedges leave the reader unable to decide whether to trust the line.",
+      "fix": "Give the condition under which it holds, or state it flatly"
+    }
+  ]
+}
