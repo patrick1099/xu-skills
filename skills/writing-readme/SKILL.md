@@ -77,6 +77,28 @@ py -3 scripts/readme_lint.py diff <README>      # 只看这一版新引入的
 `--strict` 让 warn 也算不通过；`--skip <检查名>` 跳过某项结构检查（例如纯 API 参考文档
 本来就不该有证据块，可 `--skip evidence-first`）。
 
+## 要双语的时候
+
+GitHub 和 VS Code Marketplace 的 markdown 都不跑 JS，**做不出点一下就地切换**。通用做法是
+两个文件 + 顶部互挂链接，视觉上就是一行 `中文 | English`：
+
+```markdown
+[中文](https://github.com/<owner>/<repo>/blob/main/README.zh-CN.md) | **English**
+```
+
+三条：**主文件必须是 `README.md`**（商店页和仓库首页只认它，决定了哪个语言是默认）；
+**链接写绝对 URL**，因为 Marketplace 页面不在仓库上下文里，相对链接点不开；**当前语言那一侧
+不做成链接**，加粗即可，否则读者会点到自己已经在看的页面。
+
+两份要逐节对应。改完一边就核对一次标题清单，节数对不上就是已经开始漂移了：
+
+```bash
+py -3 scripts/readme_lint.py check --lang en README.md
+py -3 scripts/readme_lint.py check README.zh-CN.md
+```
+
+译文不是自动的，两份都要各自过闸 —— 语言包只查文风，不产译文。
+
 ## 加规则
 
 规则包是 `rules/zh.json` / `rules/en.json`，加一条 = 加一个 JSON 对象：
