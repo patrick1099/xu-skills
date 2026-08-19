@@ -11,6 +11,9 @@
 
 ## 包含的 skill
 
+### cli-ai-spec
+**AI 友好 CLI 契约**:写/改命令行工具、让 CLI 能被 AI、脚本、CI 稳定解析调用时触发。机器契约:统一信封 `{ok,data,error,meta}`、退出码 0·1·2、eager `--ai-help`、`--json`/`--format json` 等价、dry-run 约定、跨脚本统一错误码总表(新码先入表再使用)。正文给了一份落地检查清单(贴给 AI 当约束),以及契约测试闸的用法(script-manager 的 `contract-test check <tool>`,有失败 rc1 且错误信封走 stderr)。
+
 ### learning-skill
 基于 Benjamin Bloom 的 2-Sigma 与掌握学习法的一对一个性化学习工作流:生成课程、判断掌握度、补充讲解、维护学习进度。
 

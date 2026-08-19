@@ -8,7 +8,7 @@
     {
       "name": "xu-skills",
       "source": ".",
-      "description": "learning-skill + learning-skill-plus + skill-review + curating-memory 四个通用 skill 打包（vibe-* 三件已迁往 vibe-flow 插件）"
+      "description": "cli-ai-spec + writing-readme + learning-skill + learning-skill-plus + skill-review + curating-memory 六个通用 skill 打包（vibe-* 三件已迁往 vibe-flow 插件）"
     }
   ]
 }
