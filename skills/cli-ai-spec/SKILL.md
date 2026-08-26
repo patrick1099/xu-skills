@@ -90,6 +90,17 @@ description: Use when writing or modifying a CLI script/tool that AI, scripts, o
 - `--dry-run --json` 预演计划变更不落盘；预演与真跑**共用同一条写入路径**（闸设在写函数里，绝不靠改配置假装预览）
 - 信封里 data 统一带 `dry_run: true/false`，禁自创命名（如旧版 `applied`）
 
+### 7. 自由文本参数的非命令行通道（必须）
+
+任何接受**自由文本**的参数（prompt、消息正文、提交说明、查询语句、代码片段），除了 `--x VALUE` 这一种命令行形式，**必须另有一条不经过 shell 的通道**：`--x-file <路径>`，或约定 `--x -` 表示从 stdin 读。
+
+- **为什么必须**：信封是输出侧合同，**管不到输入侧**。参数在 `exec` 之前就已被 shell 处理过一轮——文本里含反引号、`$`、引号、反斜杠时，程序拿到的可能是被替换或截断过的东西，而它**从自己的角度看参数完全合法**，照常返回 `ok:true` 的信封。**用输出格式检测不出输入已被污染**，这是结构性的，不是实现没做好。
+- 两种实测形态：① prompt 含反引号，bash 在双引号内当命令替换**真执行**，整条调用根本没发出去（2026-08-14）；② Windows 上经 `cmd` / `.cmd` shim 传多行文本被截断。
+- `--x-file` 按 UTF-8 读；文件不存在 → `E_NOT_FOUND`，不是普通文件或解码失败 → `E_VALIDATION`
+- `--x` 与 `--x-file` **同时给 → `E_VALIDATION`**，不许猜哪个优先
+- stdin 形式沿用已有那条：期望管道输入但 stdin 是 TTY 时不挂起，打印简略提示后退出
+- **调用方那一侧的配套做法**（写进 `--ai-help` 的 Quick Reference）：用 `subprocess.run([...])` 传 list argv，绝不拼命令行字符串
+
 ## 落地检查清单（贴给 AI 当约束）
 
 - [ ] 所有命令支持 --json，stdout 只有 JSON，日志全进 stderr
@@ -103,6 +114,7 @@ description: Use when writing or modifying a CLI script/tool that AI, scripts, o
 - [ ] 错误码来自总表，新码先入表再使用
 - [ ] 外部工具非零退出码归一退出 1，原退出码进 error.details
 - [ ] 期望管道输入但 stdin 是 TTY 时不挂起（打印简略提示后退出）
+- [ ] 自由文本参数有 `--x-file` 或 stdin 通道；两者同给报 E_VALIDATION
 
 ## 验证：契约测试闸
 
@@ -124,6 +136,7 @@ contract-test check <tool>   # 全部通过 rc0；有失败 rc1，错误信封�
 - 成功信封里把业务字段提到顶层 —— AI 只看 data 内
 - 自创 dry-run 字段名 —— 统一 `dry_run`
 - GBK 控制台直接 print 中文 —— 先 reconfigure 成 UTF-8
+- 自由文本只给 `--x VALUE` 一种传法 —— 文本里的反引号 / `$` / 引号会在 exec 前被 shell 改写，程序收到污染值却照常返回 ok:true，信封查不出来
 
 ## 参考
 
