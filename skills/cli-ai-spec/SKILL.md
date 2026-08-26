@@ -60,6 +60,8 @@ description: Use when writing or modifying a CLI script/tool that AI, scripts, o
 | `E_PARTIAL_FAILURE` | 部分成功（批量任务） |
 | `E_COMMENTS_FOUND` | 检查器查到违规项（条件未满足 = 失败） |
 | `E_CONTRACT_VIOLATION` | 契约检查失败（测试闸） |
+| `E_INTERRUPTED` | 用户/外部中断（可捕获的 Ctrl+C / 中断信号），状态已保全可安全重跑 |
+| `E_VERIFICATION_FAILED` | 生成物验收失败（非参数错、非内部 bug），如生成后自检不通过 |
 | `E_INTERNAL` | 未预期异常（兜底） |
 
 - 错误码分类用 **isinstance 沿 `__cause__` 链**，禁类名映射（底层 `FileNotFoundError`→E_NOT_FOUND、`PermissionError`→E_PERMISSION，其余 IO 类→E_IO），类名重构不应悄悄退化成 E_INTERNAL
