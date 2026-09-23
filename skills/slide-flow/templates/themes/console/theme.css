@@ -1,0 +1,26 @@
+:root {
+  --sf-bg: #0F1418;
+  --sf-surface: #172027;
+  --sf-surface-2: #1F2A32;
+  --sf-ink: #E4EAEE;
+  --sf-muted: #8FA0AB;
+  --sf-line: #2A3842;
+  --sf-accent: #F0B43C;
+  --sf-accent-ink: #F6CD74;
+  --sf-accent-soft: #3A2F18;
+  --sf-on-accent: #1A1300;
+  --sf-accent2: #5CC8D7;
+  --sf-accent2-soft: #16343A;
+  --sf-code-bg: #141C22;
+  --sf-radius: 8px;
+  --sf-shadow: none;
+  --sf-font-sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  --sf-font-head: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --sf-font-mono: "JetBrains Mono", "Cascadia Mono", Consolas, "Courier New", monospace;
+  --sf-bg-pattern: radial-gradient(circle at 88% 12%, rgba(92, 200, 215, 0.08), transparent 42%);
+  --sf-cover-mark:
+    radial-gradient(circle at 80% 40%, rgba(240, 180, 60, 0.14), transparent 38%),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgba(92, 200, 215, 0.06) 47px 48px);
+}
+.slidev-layout h1 { color: #F2F5F7; }
+.sf-section-num { color: var(--sf-accent); text-shadow: 0 0 24px rgba(240, 180, 60, 0.25); }

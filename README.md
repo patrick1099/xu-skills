@@ -41,6 +41,16 @@ py -3 skills/writing-readme/scripts/readme_lint.py check README.md
 > 只想 lint 英文散文就用 [slopster](https://github.com/t0ddharris/slopster) / [deslop](https://github.com/JMill/deslop),它们做得更狠。
 > 这个 skill 补的是它们不覆盖的两块:中文技术写作的指纹,以及文档结构层。
 
+### slide-flow
+让 AI 用 [Slidev](https://sli.dev) 做演示幻灯片:说「做个 PPT / 幻灯片 / 讲解课件」时触发。大纲你点头后 AI 直接出成品,哪页不满意在对话里说。想自己定某几页的结构,可以在 PowerPoint 里拖几个方框、箭头,红字写给 AI 的指令,备注栏写讲稿,把草稿丢给它(可选);AI 读出每个形状的位置、文字和连线(没接上框的线按端点就近认),照布局意图生成对应页;有 PowerPoint 时经 COM 读并导出每页图片,没有时直接解析文件。图按类型分工:摆放类用 HTML/CSS,连线多的用 D2 自动布局,位域波形用 WaveDrom,要亲手调的用 draw.io。
+
+`scripts/sf.py` 一个命令行管全程(建工程、三套主题预览、生成草稿模板、读草稿、渲染图、版面规则检查、逐页截图查出界和裁切、导出 PDF),遵守 cli-ai-spec 契约。依赖 Node、全局 Slidev、D2、本机 Chrome,PowerPoint 可选,`sf.py doctor` 会逐项查。
+
+```
+py -3 skills/slide-flow/scripts/sf.py doctor
+py -3 skills/slide-flow/scripts/sf.py init my-deck --title "标题"
+```
+
 ## 已迁出
 
 `vibe-flow` / `vibe-scripts` / `vibe-apps` 已于 2026-07-30 迁往独立插件 **[vibe-flow](https://github.com/patrick1099/vibe-flow)**,与原 `true-north` 四件套(clarify-needs / living-blueprint / cut-scope / scan-field)合并成一套有档位的完整 vibe-coding 工作流("小事要省,大事要好")。写脚本 / 建应用 / 明确需求 / 剪枝 / 扫同款请装那个插件。

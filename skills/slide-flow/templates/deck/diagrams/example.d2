@@ -1,0 +1,11 @@
+direction: right
+入口: 入口 {shape: rectangle}
+流程: 流程 {
+  开机
+  联网
+  收发
+  开机 -> 联网 -> 收发
+}
+内容: 内容 {shape: rectangle}
+入口 -> 流程: 启动
+流程.收发 -> 内容: 每帧调用

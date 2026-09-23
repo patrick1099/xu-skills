@@ -1,0 +1,26 @@
+:root {
+  --sf-bg: #EEF1EA;
+  --sf-surface: #F8FAF5;
+  --sf-surface-2: #E1E6DC;
+  --sf-ink: #1C231F;
+  --sf-muted: #5B665F;
+  --sf-line: #CDD4C8;
+  --sf-accent: #C48A08;
+  --sf-accent-ink: #8A5E00;
+  --sf-accent-soft: #F4E6BE;
+  --sf-on-accent: #1C1400;
+  --sf-accent2: #2E6B5E;
+  --sf-accent2-soft: #D6E6DF;
+  --sf-code-bg: #F8FAF5;
+  --sf-radius: 6px;
+  --sf-shadow: 0 1px 0 rgba(28, 35, 31, 0.06);
+  --sf-font-sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  --sf-font-head: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --sf-font-mono: "JetBrains Mono", "Cascadia Mono", Consolas, "Courier New", monospace;
+  --sf-bg-pattern: none;
+  --sf-cover-mark:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(46, 107, 94, 0.13) 23px 24px) 100% 0 / 36% 100% no-repeat,
+    linear-gradient(90deg, rgba(46, 107, 94, 0.08), rgba(46, 107, 94, 0.08)) 100% 0 / 36% 100% no-repeat;
+}
+.sf-cover h1 { letter-spacing: 0.02em; }
+.sf-section-num { font-family: var(--sf-font-mono); transform: skewX(-6deg); }

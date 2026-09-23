@@ -1,0 +1,29 @@
+:root {
+  --sf-bg: #FBFCFE;
+  --sf-surface: #FFFFFF;
+  --sf-surface-2: #E9EFF8;
+  --sf-ink: #14213D;
+  --sf-muted: #5A6785;
+  --sf-line: #C9D5E6;
+  --sf-accent: #D1495B;
+  --sf-accent-ink: #B23648;
+  --sf-accent-soft: #FBE3E6;
+  --sf-on-accent: #FFFFFF;
+  --sf-accent2: #1F5FA8;
+  --sf-accent2-soft: #DCE8F5;
+  --sf-code-bg: #F4F7FC;
+  --sf-radius: 3px;
+  --sf-shadow: none;
+  --sf-font-sans: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  --sf-font-head: "SimSun", "Songti SC", "Noto Serif SC", serif;
+  --sf-font-mono: "JetBrains Mono", "Cascadia Mono", Consolas, "Courier New", monospace;
+  --sf-bg-pattern:
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(31, 95, 168, 0.06) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, rgba(31, 95, 168, 0.06) 31px 32px);
+  --sf-cover-mark:
+    repeating-linear-gradient(0deg, transparent 0 7px, rgba(31, 95, 168, 0.05) 7px 8px),
+    repeating-linear-gradient(90deg, transparent 0 7px, rgba(31, 95, 168, 0.05) 7px 8px);
+}
+.slidev-layout h1 { font-weight: 700; }
+.sf-step, .sf-card { border-color: #9FB6D6; }
+.sf-section-num { color: var(--sf-accent2); font-weight: 500; }
