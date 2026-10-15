@@ -73,7 +73,8 @@ skill / plugin / hook),该"晋升"的**挑出来提名**;顺带扫一遍**还没
 | **压摘要** | `description` 长到在索引里读不动。**改 description 字段**,不是改索引文件。够辨识即可,不一刀切砍短。 |
 | **符号化** | 正文里有裸绝对路径 → 换成 `$VAULT` / `$CLAUDE_HOME` / `$CODEX_HOME`(符号表 = `device.toml` 的 `[paths]`)。留着 `hub sync` 会直接拒。纯信息性、无符号可映射的 → 登记 `$VAULT/lint-exempt.txt`。 |
 | **打 scope 标** | 默认 `[global]` 名不副实时。**只有 `tool:` 维度能立刻瘦某个工具的视图**;`class:`/`project:` 是**设备订阅条件**,在本机一条上下文都省不下(细节见 references/hub-regime.md §5)。`global` 必须独占。**收窄 = 让别的工具从此看不见它,按收窄处理、进批准表。** |
-| **→ 提升 shared** | 收件箱里值得入库的记忆。次序:先 `hub collect` 再 `hub promote-memory --name`。 |
+| **分公司/个人** | 每条记忆都要判:**公司专用**(固件知识、公司仓约定、公司工具、Esafenet、只在公司电脑成立的本机配置)→ `[class:work]`;**个人习惯/通用经验/个人工具** → `[global]`。一条里两者混着 → 提名**拆分**。拿不准的进计划表的"待定"组问用户,**不许默认 `global`**。 |
+| **→ 提升 shared** | 收件箱里值得入库的记忆。次序:先 `hub collect` 再 `hub promote-memory --name`。原生记忆没有 scope,提升后要按上一行补标,不能任它落成 `global`。 |
 | **收编提名** | 游离的 skill/plugin(本机有、金库没有)。**只提名**,不代跑。 |
 
 判据冲突时:**先问、别猜**(见 [[feedback_no_silent_behavior_change]])。
@@ -93,7 +94,9 @@ skill / plugin / hook),该"晋升"的**挑出来提名**;顺带扫一遍**还没
 | feedback_always_vsix.md | feedback/global | → hook | "每次发版就打 vsix"是自动行为,记忆保证不了 | — |
 ```
 
-按裁决分组呈现。**删除组必须逐条亮出正文 + 理由,等用户明确点头**才删。用户批准后:
+按裁决分组呈现。**删除组必须逐条亮出正文 + 理由,等用户明确点头**才删。
+新入库的、以及仍是 `[global]` 但内容带公司痕迹的条目,单列一组"公司/个人"判定,和其他裁决一起批。
+用户批准后:
 
 1. 执行 合并/删除/改 type/改 description/日期归一化/路径符号化/scope 打标。
 2. **收尾链路**(缺一步整理就没生效):

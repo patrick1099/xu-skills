@@ -83,6 +83,10 @@ global | class:<名> | project:<名> | tool:<claude|codex|opencode>
 → **真正能立刻瘦某个工具视图的只有 `tool:` 维度**(例:纯 Claude 的 harness 细节打
 `[tool:claude]`,codex/opencode 的视图就不再渲染它)。裁决时别拿 class/project 当瘦身手段卖。
 
+**`class:work` 的实际用途是隔离公司内容**(2026-10-15 用户定):公司电脑 `class = ["work"]`,
+个人电脑 `class = ["personal"]`。公司专用记忆标 `[class:work]`,个人电脑就看不到;
+个人习惯和通用经验标 `[global]`。这只管"别的电脑用不着",不管上传——文件照样在金库里推 GitHub。
+
 ## 6. frontmatter 是 YAML 的受控子集
 
 ```markdown
