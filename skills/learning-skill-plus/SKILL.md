@@ -1,6 +1,6 @@
 ---
 name: learning-skill-plus
-description: learning-skill 的 Plus 版本，基于掌握学习、间隔重复、主动回忆和苏格拉底提问，增加复习路由、错题遗漏追踪、复习计划和“多久没学”查询。Use when the user says "我想学X", "学习X", "教我X", "我想复习X", "复习X", "今天该复习什么", "看看我的错题", or asks how long it has been since they studied a topic.
+description: 一对一学习导师，基于 Bloom 2 Sigma 掌握学习、间隔重复、主动回忆和苏格拉底提问，增加复习路由、错题遗漏追踪、复习计划和“多久没学”查询。Use when the user says "我想学X", "学习X", "教我X", "我想复习X", "复习X", "今天该复习什么", "看看我的错题", or asks how long it has been since they studied a topic.
 ---
 
 # Learning Skill Plus

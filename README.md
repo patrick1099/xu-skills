@@ -14,11 +14,8 @@
 ### cli-ai-spec
 **AI 友好 CLI 契约**:写/改命令行工具、让 CLI 能被 AI、脚本、CI 稳定解析调用时触发。机器契约:统一信封 `{ok,data,error,meta}`、退出码 0·1·2、eager `--ai-help`、`--json`/`--format json` 等价、dry-run 约定、跨脚本统一错误码总表(新码先入表再使用)。正文给了一份落地检查清单(贴给 AI 当约束),以及契约测试闸的用法(script-manager 的 `contract-test check <tool>`,有失败 rc1 且错误信封走 stderr)。
 
-### learning-skill
-基于 Benjamin Bloom 的 2-Sigma 与掌握学习法的一对一个性化学习工作流:生成课程、判断掌握度、补充讲解、维护学习进度。
-
 ### learning-skill-plus
-learning-skill 的加强版:在掌握学习之上加入**间隔重复、主动回忆、苏格拉底提问**,以及复习路由、错题/遗漏追踪、复习计划、"多久没学"查询。
+基于 Benjamin Bloom 的 2-Sigma 与掌握学习法的一对一个性化学习工作流,并加入**间隔重复、主动回忆、苏格拉底提问**,以及复习路由、错题/遗漏追踪、复习计划、"多久没学"查询。
 
 ### skill-review
 基于真实运行证据的轻量 skill 复盘：只在明确调用时启动一个独立子 agent，回看当前对话、实际使用的 skill、工具错误、用户纠正和验证结果；把发现分别路由为脚本候选、`SKILL.md` 正文、description、reference/example、验证缺口、宿主/项目规则或“不应修改”。默认只生成逐项可审核的提案，不自动编辑、bump 版本或提交。
