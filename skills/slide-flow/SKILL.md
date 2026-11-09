@@ -5,6 +5,8 @@ description: 用 Slidev 做好看、能直接上台讲的幻灯片：AI 按确�
 
 # slide-flow：AI 写幻灯片
 
+首次安装、换机器、换宿主或依赖缺失时，先读[安装与适配](../../SETUP.md)；环境已就绪时直接按下文使用。
+
 成品是 Slidev 工程（Markdown + 少量 HTML），AI 改一处只动几行。默认 AI 按大纲直接出成品，用户看了在对话里提意见；PowerPoint 草稿是可选入口，只在用户自己带来时用。所有命令都在 `scripts/sf.py`（`py -3 scripts/sf.py --ai-help` 看完整用法），路径相对本 skill 目录。
 
 ## 硬规矩

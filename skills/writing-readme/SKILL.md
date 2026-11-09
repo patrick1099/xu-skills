@@ -5,6 +5,8 @@ description: Use when writing or rewriting a README (or any outward-facing proje
 
 # Writing README
 
+首次安装、换机器、换宿主或依赖缺失时，先读[安装与适配](../../SETUP.md)；环境已就绪时直接按下文使用。
+
 让 README 读起来像人写的。两层病，分开治：**结构层**决定读者留不留下，**文体层**决定
 他信不信你。市面工具只做其中一层（详见文末「与市面工具的关系」）。
 

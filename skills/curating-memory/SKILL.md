@@ -5,6 +5,8 @@ description: Use when the user asks to 整理/清理/精简记忆, says 记忆�
 
 # Curating Memory
 
+首次安装、换机器、换宿主或依赖缺失时，先读[安装与适配](../../SETUP.md)；环境已就绪时直接按下文使用。
+
 整理**金库**——`$VAULT/shared/memory/` 是记忆的唯一活源。做 合并/删除/重分类/瘦身/
 日期归一化/路径符号化/scope 打标,并**判断每条记忆的最佳归宿**(留 memory / CLAUDE.md /
 skill / plugin / hook),该"晋升"的**挑出来提名**;顺带扫一遍**还没进金库的东西**。手动触发。

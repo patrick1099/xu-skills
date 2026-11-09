@@ -5,6 +5,8 @@ description: Use when writing or modifying a CLI script/tool that AI, scripts, o
 
 # CLI-AI 规范
 
+首次安装、换机器、换宿主或依赖缺失时，先读[安装与适配](../../SETUP.md)；环境已就绪时直接按下文使用。
+
 给命令行脚本定"AI 友好 CLI"的机器契约。目标：任何 CLI 都能被 AI、脚本、CI 稳定解析、可靠调用。
 **AI 只看三样东西：`ok` 字段、`error.code`、退出码**——其余都是给人看的。
 
